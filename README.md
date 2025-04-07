@@ -4,23 +4,34 @@ A Model Context Protocol (MCP) connector for Google Sheets that allows AI agents
 
 ## Setup
 
-1. Build:
+1. Clone this repository:
+```bash
+git clone https://github.com/mkummer225/google-sheets-mcp
+cd google-sheets-mcp
+```
+
+
+2. Install dependencies:
+`npm install`
+
+
+3. Build:
 `npm run build`
 
 
-2. Create OAuth credentials in Google Cloud Platform:
+4. Create OAuth credentials in Google Cloud Platform:
    - Create a new project in [Google Cloud Console](https://console.cloud.google.com/)
    - Enable the [Google Sheets API](https://console.cloud.google.com/marketplace/product/google/sheets.googleapis.com)
    - Configure the OAuth consent screen
    - Create OAuth client ID credentials (Desktop application) with an appropriate redirect URI (ex: http://localhost:3000/oauth2callback)
-   - Download the credentials and save as `gcp-oauth.keys.json` in `dist` subdirectory
+   - Download the credentials and save as `gcp-oauth.keys.json` in the `dist` subdirectory
 
 
-3. Authenticate:
+5. Authenticate:
 `npm run start auth`
 
 
-4. Run the server:
+6. Start the MCP server:
 `npm run start`
 
 
