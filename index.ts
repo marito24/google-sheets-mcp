@@ -910,28 +910,37 @@ const credentialsPath =
     );
 
 async function authenticateAndSaveCredentials() {
-    console.log("Launching auth flow…");
+    const gcpKeysPath = path.join(
+        path.dirname(fileURLToPath(import.meta.url)),
+        "gcp-oauth.keys.json"
+    );
+
+    console.log("Checking for credentials...");
+    
+    if(!fs.existsSync(gcpKeysPath)) {
+        throw new Error("Credentials file not found, expected: " + gcpKeysPath)
+    }
+
+    console.log("Launching auth flow...");
     const auth = await authenticate({
         keyfilePath:
             process.env.GSHEETS_OAUTH_PATH ||
-            path.join(
-                path.dirname(fileURLToPath(import.meta.url)),
-                "gcp-oauth.keys.json"
-            ),
+            gcpKeysPath,
         scopes: [
             "https://www.googleapis.com/auth/spreadsheets",
         ],
     });
+    
     fs.writeFileSync(credentialsPath, JSON.stringify(auth.credentials));
+
     console.log("Credentials saved. You can now run the server.");
 }
 
 async function loadCredentialsAndRunServer() {
     if (!fs.existsSync(credentialsPath)) {
-        console.error(
+        throw new Error(
             "Credentials not found. Please run with 'auth' argument first."
         );
-        process.exit(1);
     }
 
     const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
@@ -939,13 +948,13 @@ async function loadCredentialsAndRunServer() {
     auth.setCredentials(credentials);
     google.options({ auth });
 
-    console.error("Credentials loaded. Starting server.");
+    console.log("Credentials loaded. Starting server.");
     const transport = new StdioServerTransport();
     await server.connect(transport);
 }
 
 if (process.argv[2] === "auth") {
-    authenticateAndSaveCredentials().catch(console.error);
+    authenticateAndSaveCredentials();
 } else {
-    loadCredentialsAndRunServer().catch(console.error);
+    loadCredentialsAndRunServer();
 }
