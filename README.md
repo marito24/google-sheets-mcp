@@ -2,6 +2,10 @@
 
 A Model Context Protocol (MCP) connector for Google Sheets that allows AI agents to interact with spreadsheets directly.
 
+## Demo
+
+https://github.com/user-attachments/assets/cc4729d9-4e6e-437b-848b-6da9a09418c3
+
 ## Setup
 
 1. Clone this repository:
