@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { authenticate } from "@google-cloud/local-auth";
+import { OAuth2Client } from "google-auth-library"
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -76,6 +77,15 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
         tools: [
+            {
+                name: "refresh_auth",
+                description: "Refresh Google Sheets authentication when credentials expire",
+                inputSchema: {
+                    type: "object",
+                    properties: {},
+                    required: [],
+                },
+            },
             {
                 name: "create_spreadsheet",
                 description: "Create a new Google Spreadsheet",
@@ -465,6 +475,37 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
     try {
         switch (name) {
+            case "refresh_auth": {
+                try {
+                    await authenticateAndSaveCredentials();
+                    
+                    // Reload credentials
+                    const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
+                    const auth = new google.auth.OAuth2();
+                    auth.setCredentials(credentials);
+                    google.options({ auth });
+                    
+                    return {
+                        content: [
+                            {
+                                type: "text",
+                                text: "Authentication refreshed successfully. You can now continue using Google Sheets."
+                            }
+                        ],
+                        isError: false
+                    };
+                } catch (error: any) {
+                    return {
+                        content: [
+                            {
+                                type: "text",
+                                text: `Failed to refresh authentication: ${error.message}`
+                            }
+                        ],
+                        isError: true
+                    };
+                }
+            }
             case "create_spreadsheet": {
                 const { title, initialSheetName = "Sheet1" } = args as any;
                 
@@ -890,6 +931,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 throw new Error(`Tool '${name}' not found`);
         }
     } catch (error: any) {
+        // Check if the error is related to authentication
+        if (error.message.includes("invalid_grant") || 
+            error.message.includes("token expired") || 
+            error.message.includes("unauthorized")) {
+            return {
+                content: [
+                    {
+                        type: "text",
+                        text: `Authentication error: ${error.message}. Please use the refresh_auth tool to reauthenticate.`,
+                    },
+                ],
+                isError: true,
+            };
+        }
+        
         return {
             content: [
                 {
@@ -936,28 +992,32 @@ async function authenticateAndSaveCredentials() {
     fs.writeFileSync(credentialsPath, JSON.stringify(auth.credentials));
 
     console.log("Credentials saved. You can now run the server.");
+    return auth;
 }
 
 async function loadCredentialsAndRunServer() {
+    let auth: OAuth2Client | undefined;
+    
     if (!fs.existsSync(credentialsPath)) {
-        console.error(
-            "Credentials not found. Please run with 'auth' argument first."
-        );
-        process.exit(1);
+        console.log("Credentials not found. Starting authentication flow...");
+        auth = await authenticateAndSaveCredentials();
+    } else {
+        try {
+            const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
+            auth = new google.auth.OAuth2();
+            auth.setCredentials(credentials);
+        } catch (error) {
+            console.error("Error loading credentials, initiating new authentication flow...");
+            auth = await authenticateAndSaveCredentials();
+        }
     }
-
-    const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
-    const auth = new google.auth.OAuth2();
-    auth.setCredentials(credentials);
+    
     google.options({ auth });
 
-    console.error("Credentials loaded. Starting server.");
+    console.error("Starting server...");
     const transport = new StdioServerTransport();
     await server.connect(transport);
 }
 
-if (process.argv[2] === "auth") {
-    authenticateAndSaveCredentials().catch(console.error);
-} else {
-    loadCredentialsAndRunServer().catch(console.error);
-}
+// Handle auth internally
+loadCredentialsAndRunServer().catch(console.error);

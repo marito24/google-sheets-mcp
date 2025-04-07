@@ -27,11 +27,7 @@ cd google-sheets-mcp
    - Download the credentials and save as `gcp-oauth.keys.json` in the `dist` subdirectory
 
 
-5. Authenticate:
-`npm run start auth`
-
-
-6. Start the MCP server:
+5. Start the MCP server (you'll automatically be prompted to authenticate/re-authenticate your Google account when necessary):
 `npm run start`
 
 
@@ -57,6 +53,7 @@ Then you should be able to simply specify your spreadsheetId or ask your agent t
 
 | Action | Description |
 |--------|-------------|
+| `refresh_auth` | Re-authenticate your Google Account when credentials expire |
 | `list_sheets` | List all sheets/tabs in a Google Spreadsheet |
 | `create_sheet` | Create a new sheet/tab in a Google Spreadsheet |
 | `create_spreadsheet` | Create a new Google Spreadsheet |
