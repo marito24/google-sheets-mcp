@@ -1021,3 +1021,20 @@ async function loadCredentialsAndRunServer() {
 
 // Handle auth internally
 loadCredentialsAndRunServer().catch(console.error);
+
+// ⬇️ IMPORTACIONES NUEVAS
+import express from "express";
+import cors from "cors";
+
+// ⬇️ INICIALIZA EXPRESS Y ESCUCHA PUERTO PARA Railway
+const port = process.env.PORT || 3333;
+const app = express();
+
+app.use(cors());
+app.get("/", (_, res) => {
+  res.send("Google Sheets MCP Server is running ✅");
+});
+
+app.listen(port, () => {
+  console.log(`🚀 HTTP server listening on port ${port}`);
+});
