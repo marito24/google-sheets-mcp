@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "jovial-sunrise-454010-e3",
+  "private_key_id": "a1fed451bf86e034606c443e127efdadbc9fc742",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCn7NWfvaMU7ucy\nKzG1qUgrrwekRyqpOUh5zyO/X57QawQtAXNCuV2D4ZABBBDneq62kONBL7N3j5qe\neXls90JKckmjdqeVDE206+Dt5PjJggDCb8c5gWTezZvgT40URQu4tjxtqySVkA00\ngpT69h1L0aNVcaCelTG+ihx7Lxp1We7t1s091GeDKkp1lQViYq9WkQM0HGv9gYSG\nZKNszv6G5JyxfFfTjvjMAsa/wyTYojac6PMRuH83uqbPjOZDduQ7nZMtk9woKTAN\nLkbYDe86fxmvH8lTATRdRNmEZW5UMzoAwq6/BtMZUjg4CnXRMR1FLU/+IuFI+2bx\n9FBg7x6nAgMBAAECggEASAWzn/Y5dnZ60ZEmGmiXDClfaS2e1gK8G4ZkqiVsW66y\nlUz8bv9K5Q/+7/ia+XUsbyAYYDKB0kNUySiHlF0+YOjAvavb93jV8UWD7PSaYe7w\nvXQsqfTd2xOridsEws9UVi5PH6haIg2tJDrng/XAHe81kyWPgsSxl6vryEetHOw6\nRS3NSJx2dpvIZJl1T8gOqhM6qOryP1BpT0IpIAT3qZC6rkQLiYFGCDI9wfbGlzTQ\njKyajADx0JGRdrIstV1wZ2XfAJ3EhAPgHSmHmO7YbcxnzWKsEkk8oTc8VNj2jlks\n2shF48sMRPWX8ofJpEF2BL6qeiM8RaVYMgfXjHJntQKBgQDS16rDEbtfD5A0VtJz\nPIUMQL50YKz6GkRuwqHg2ln2ga5PhetELpIEYOsO6rmFqNSK52N7G2qktVxKwD4y\n7Q4wt9tShvfFMZe2Rr7JdG1SwY5YHh7ejhoFjJ3U4261JfWWcmfpZgTUyVdvjkCt\ngsGbLqJ2VrHw/LYx96D0s/CDWwKBgQDL5AsX7OvBCwWkZk0jhUvI0RIJFs69iYqT\nW0GcfLdv/x/sAr6aSk9zZEhB3VRoeSNs3MczUBh+dX8BYL76vrrx1INY9YK6fdEM\nxC9D8+DJ98vzl3Te1FsU+1voVdnabx73ogjsl3H9Et+oZgfEWB2xQRdcFdYqX5dK\nUpKyKcJvpQKBgBxxXabtGHLNfa2h3MgQ7P3nKgo3FH601nB+rynPKv23JtWxgjhz\nc91FWdBsV9SxHuMSLfhojW1kzeuDnaBvHE/0LZEnhftDIm1Dg+9XVnwoglRe09lA\nIECJZK1YdRHY6hV+n4f77EDsXHA/J3iAwC94DhCax2x0GvwIpNz9/T8rAoGAZ99p\n92pwQQzIdxTXP71s+oXo1lCUSuODgccACiVPnvMu5CIR0LEDARqZ5VRI6GCut4tS\nwMWRdPuPFLihE0WQIBvQPsX1L+VhV0ureMcKQlrHwPXsSImPTYUxMZBrSGlMMYSP\nX1lYbUHsR/KTCmiJ1//9UqCdV0ET5n1i1vmHYTECgYEArVRT/XSfs5M1ODX9xcV6\nzFuhPUjwJ3k8pA5+KwxgT8BV1jxC/0+FK/D2oWV3YHMwcaAuL8ip//qqetuJ9QjG\nyxYbPLcABxbPe1BvlwFyze2ThCtKy5IaA5d7pz0clwf+nHOZ0aKtrNTRyq8teUff\nXrE3bzIfnGPYiENDepAZV54=\n-----END PRIVATE KEY-----\n",
+  "client_email": "mcp-sheets-service@jovial-sunrise-454010-e3.iam.gserviceaccount.com",
+  "client_id": "115904471790396214096",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mcp-sheets-service%40jovial-sunrise-454010-e3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
